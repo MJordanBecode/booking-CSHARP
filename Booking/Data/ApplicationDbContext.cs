@@ -11,54 +11,11 @@ public class ApplicationDbContext : IdentityDbContext
     {
    
     }
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<ApplicationUser> Users { get; set; }
     public virtual DbSet<Offer> Offers { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(u => u.Id);
-            
-            entity.Property(u => u.Password)
-                .IsRequired()
-                .HasMaxLength(255);
-            
-            entity.Property(u => u.Email)
-                .IsRequired()
-                .HasMaxLength(128);
-
-            entity.HasIndex(u => u.Email).IsUnique();
-
-            entity.Property(u => u.PhoneNumber)
-                .IsRequired()
-                .HasMaxLength(128);
-            
-            entity.Property(u => u.DateCreation)
-                .HasColumnType("timestamp")
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            
-            entity.HasOne<Role>()
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RoleId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
-        
-        modelBuilder.Entity<Role>(entity =>
-        {
-            entity.HasKey(r => r.Id);
-
-            entity.Property(r => r.Name)
-                .IsRequired()
-                .HasMaxLength(128);
-            
-            entity.HasIndex(r => r.Name).IsUnique();
-
-            entity.Property(r => r.Level)
-                .IsRequired();
-
-        });
-
         modelBuilder.Entity<Offer>(entity =>
         {
             entity.HasKey(o => o.Id);
@@ -96,7 +53,7 @@ public class ApplicationDbContext : IdentityDbContext
                 .HasMaxLength(500);
 
             // Relation avec User 
-            entity.HasOne<User>()
+            entity.HasOne<ApplicationUser>()
                 .WithMany() // Un utilisateur peut avoir plusieurs offres
                 .HasForeignKey(o => o.IdUser)
                 .OnDelete(DeleteBehavior.Cascade);

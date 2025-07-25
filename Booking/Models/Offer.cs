@@ -24,5 +24,5 @@ public class Offer
     
     public string Image { get; set; } = string.Empty;
     
-    public User OfferUser { get; set; } = null!;
+    public ApplicationUser OfferUser { get; set; } = null!;
 }
