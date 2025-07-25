@@ -42,5 +42,5 @@
 @*Permet d'afficher toutes les cartes ! *@
 @foreach (var card in Model)
 {
-    @await Html.PartialAsync("Shared/card/_card", card)
+    @await Html.PartialAsync("_card/_card", card)
 }

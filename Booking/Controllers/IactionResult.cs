@@ -3,7 +3,7 @@ using Solution.Models;
 using System.Collections.Generic;
 using Booking.Models;
 
-namespace Solution.Controllers
+namespace Booking.Controllers
 {
     public class HomeController : Controller
     {

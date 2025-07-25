@@ -5,7 +5,7 @@ using Solution.Service;
 using Solution.Extensions;
 using Solution.Models;
 
-namespace Solution.Controllers
+namespace Booking.Controllers
 {
     public class YourControllerNameController : Controller
     {
