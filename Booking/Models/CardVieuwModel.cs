@@ -1,4 +1,4 @@
-﻿namespace Solution.Models
+﻿namespace Booking.Models
 {
     public class CardViewModel
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Solution.Models; 
 using System.Collections.Generic;
+using Booking.Models;
 
 namespace Solution.Controllers
 {
