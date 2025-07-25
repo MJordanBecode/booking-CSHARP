@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Shishi\\source\\repos\\booking-CSHARP\\Booking\\Booking.csproj": {}
+    "C:\\Users\\jorda\\RiderProjects\\booking-CSHARP\\Booking\\Booking.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Shishi\\source\\repos\\booking-CSHARP\\Booking\\Booking.csproj": {
+    "C:\\Users\\jorda\\RiderProjects\\booking-CSHARP\\Booking\\Booking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Shishi\\source\\repos\\booking-CSHARP\\Booking\\Booking.csproj",
+        "projectUniqueName": "C:\\Users\\jorda\\RiderProjects\\booking-CSHARP\\Booking\\Booking.csproj",
         "projectName": "Booking",
-        "projectPath": "C:\\Users\\Shishi\\source\\repos\\booking-CSHARP\\Booking\\Booking.csproj",
-        "packagesPath": "C:\\Users\\Shishi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Shishi\\source\\repos\\booking-CSHARP\\Booking\\obj\\",
+        "projectPath": "C:\\Users\\jorda\\RiderProjects\\booking-CSHARP\\Booking\\Booking.csproj",
+        "packagesPath": "C:\\Users\\jorda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jorda\\RiderProjects\\booking-CSHARP\\Booking\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Shishi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jorda\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -99,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

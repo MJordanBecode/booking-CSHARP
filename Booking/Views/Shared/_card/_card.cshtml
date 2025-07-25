@@ -1,0 +1,41 @@
+﻿@model Solution.Models.CardViewModel
+
+<div class="card mb-8 rounded-lg shadow-lg overflow-hidden border border-gray-200">
+    <div class="flex flex-col">
+        <div class="relative h-64 overflow-hidden">
+            <img src="~/images/@Model.Image" alt="@Model.Title" class="w-full h-full object-cover" />
+            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-2 rounded-xl flex items-center gap-2 shadow-lg">
+                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
+                <span class="text-sm font-bold text-gray-800"> @Model.note </span>
+            </div>
+            <button class="absolute top-3 right-3 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-lg hover:bg-white transition-colors group">
+                <i data-lucide="heart" class="w-5 h-5 text-gray-600 group-hover:text-red-500 transition-colors"></i>
+            </button>
+        </div>
+        <div class="bg-white p-4 space-y-3">
+            <div>
+                <h3 class="text-lg font-semibold">@Model.Title</h3>
+                <p class="text-sm text-gray-600">@Model.location</p>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <div class="flex space-x-4 text-sm text-gray-700">
+                    <p class="flex items-center gap-1">
+                        <i data-lucide="bed" class="w-4 h-4 text-blue-500"></i>
+                        <span>@Model.numberOfBeds</span>
+                    </p>
+                    <p class="flex items-center gap-1">
+                        <i data-lucide="bath" class="w-4 h-4 text-blue-500"></i>
+                        <span>@Model.numberOfBaths</span>
+                    </p>
+                    <p class="flex items-center gap-1">
+                        <i data-lucide="house" class="w-4 h-4 text-blue-500"></i>
+                        <span>@Model.numberOfRooms</span>
+                    </p>
+                </div>
+                <p class="text-[9px] font-bold text-gray-700">€@Model.price / per night</p>
+                <p class="text-[9px] font-bold text-gray-700">€@Model.price / total</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+﻿<nav class="flex items-center justify-between px-4 py-2 bg-white shadow mb-2">
+    <!-- Logo -->
+    <div>
+        <img src="/images/logoSite.png" class="w-25" alt="Logo" />
+    </div>
+    
+    <!-- Menu Desktop (caché sur mobile) -->
+    <div class="hidden md:flex space-x-6">
+        <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Accueil</a>
+        <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Produits</a>
+        <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Services</a>
+        <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Contact</a>
+    </div>
+    
+    <!-- Bouton Burger (visible seulement sur mobile) -->
+    <div class="md:hidden">
+        <div id="burgerBtn">
+            <i data-lucide="menu" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+        </div>
+        
+    </div>
+    
+</nav>
+
+
+<!-- Menu Mobile (plein écran, caché par défaut) -->
+<div id="mobileMenu" class="fixed inset-0 z-50 bg-white bg-fixed md:hidden h-screen open-menu">
+    <!-- Conteneur principal centré verticalement -->
+    <div class="flex flex-col m-x-4 h-full space-y-4 ">
+        @* *@
+        @* <div class="flex justify-content-end mt-2"> *@
+        @*     *@
+        @* </div> *@
+        
+        <div class="bg-pink-300 relative flex items-center justify-end w-full px-6 py-2 mt-4 mb-4">
+            <!-- Titre centré en absolu -->
+            <p class="absolute left-1/2 -translate-x-1/2  font-semibold text-center text-2xl">Welcome to Jostan's</p>
+
+            <!-- Icône à droite -->
+            <div  id="circle-x-close">
+                <i data-lucide="circle-x" class="w-6 h-6 text-blue-500 cursor-pointer z-10"></i>
+            </div>
+            
+        </div>
+
+        @* user *@
+        <div class="bg-gray-100 flex flex-col items-center p-4 m-1 gap-2 border border-black rounded-lg relative">
+  
+            <!-- Icône settings en haut à droite -->
+            <i data-lucide="settings" class="w-4 h-4 text-black/50 cursor-pointer absolute top-2 right-2 z-10 " id="settings"></i>
+  
+            <div>
+                <!-- Avatar centré -->
+                <img src="images/avatarUser/stitch.png" alt="default" class="w-24 h-24 rounded-full object-cover"/>
+            </div>
+  
+            <div>
+                <!-- Nom d'utilisateur -->
+                <div class="flex gap-1 items-center justify-center">
+                    <i data-lucide="circle-small" class="w-4 h-4 text-black/50 fill-green-500 cursor-pointer" id="circle-small"></i>
+                    <p>Name of user</p>
+                </div>
+            </div>
+
+        </div>
+
+       
+
+
+        <!-- Liens de navigation -->
+        <div class="px-1 py-4 space-y-4">
+            <!-- Item : Home -->
+            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
+                <!-- Icône avec fond centré -->
+                <div class="bg-[#DBEAFE] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                    <i data-lucide="home" class="w-6 h-6 text-[#2563EB]"></i>
+                </div>  
+
+                <!-- Texte + flèche -->
+                <div class="flex justify-between items-center w-full">
+                    <div class="ml-2">
+                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">Home</a>
+                        <p class="text-sm text-gray-600">Return to the Home</p>
+                    </div>
+                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                </div>
+            </div>
+
+            <!-- Item : Create an Offer -->
+            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
+        
+                <div class="bg-[#DCFCE7] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                    <i data-lucide="circle-plus" class="w-6 h-6 text-[#16A34A] cursor-pointer"></i>
+                </div>
+        
+                <div class="flex justify-between items-center w-full">
+                    <div class="ml-4">
+                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">Create an Offer</a>
+                        <p class="text-sm text-gray-600">Post your first item</p>
+                    </div>
+
+                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                </div>
+            </div>
+
+            <!-- Item : About Us -->
+            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
+        
+                <div class="bg-[#F3E8FF] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                    <i data-lucide="users" class="w-6 h-6 text-[#9333EA] cursor-pointer "></i>
+                </div>
+        
+
+                <div class="flex justify-between items-center w-full">
+                    <div class="ml-4">
+                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">About Us</a>
+                        <p class="text-sm text-gray-600">Who we are</p>
+                    </div>
+
+                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                </div>
+            </div>
+
+            <!-- Item : Login -->
+            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
+        
+                <div class="bg-[#FFEDD5] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                    <i data-lucide="log-in" class="w-12 h-12 text-[#EE712E] cursor-pointer "></i>
+                </div>
+        
+
+                <div class="flex justify-between items-center w-full">
+                    <div class="ml-4">
+                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">Login</a>
+                        <p class="text-sm text-gray-600">Access your account</p>
+                    </div>
+
+                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+
+    </div>
+</div>
+

@@ -1,8 +1,45 @@
-﻿@{
+﻿@model List<Microsoft.CodeAnalysis.Solution.Models.CardViewModel>
+@* Script Js, permet d'écrire des du js*@
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(() => {
+                const burgerBtn = document.querySelector("#burgerBtn");
+                const mobileMenu = document.querySelector("#mobileMenu");
+                const closemobilMenu = document.querySelector("#circle-x-close");
+
+                if (burgerBtn && mobileMenu) {
+                    burgerBtn.addEventListener("click", () => {
+                        mobileMenu.classList.remove("menu-closed");
+                        mobileMenu.classList.add("menu-open");
+                        lucide.createIcons();
+                    });
+                }
+
+                if (closemobilMenu && mobileMenu) {
+                    closemobilMenu.addEventListener("click", () => {
+                        // Simplement retirer menu-open et ajouter menu-closed
+                        mobileMenu.classList.remove("menu-open");
+                        mobileMenu.classList.add("menu-closed");
+                        lucide.createIcons();
+                    });
+                }
+
+                lucide.createIcons(); // Initialiser Lucide
+            }, 100);
+        });
+    </script>
+}
+
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2 class="text-2xl font-bold mb-6">@ViewData["Title"]</h2>
+@*Permet d'afficher toutes les cartes ! *@
+@foreach (var card in Model)
+{
+    @await Html.PartialAsync("Shared/card/_card", card)
+}
