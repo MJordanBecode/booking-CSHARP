@@ -12,9 +12,10 @@ public class ApplicationUser : IdentityUser
     [StringLength(55)]
     public string LastName { get; set; }
     
-    [Required]
+    /* il ne faut pas le définir ici parce que par défaut, identity là déjà intégré. 
+     [Required]
     [StringLength(30)]
-    public string PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }*/
     
 
     public DateTime DateCreation { get; set; } = DateTime.UtcNow;

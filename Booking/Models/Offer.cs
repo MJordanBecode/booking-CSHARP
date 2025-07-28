@@ -4,7 +4,7 @@ public class Offer
 {
     public int Id { get; set; }
     
-    public int IdUser { get; set; }
+    public string IdUser { get; set; } // Dans Identity, l'id est un string UUID exemple => 3f2504e0-4f89-11d3-9a0c-0305e82c3301
     
     public string Title { get; set; } = string.Empty;
     
@@ -24,5 +24,6 @@ public class Offer
     
     public string Image { get; set; } = string.Empty;
     
+    // Navigation property vers l'utilisateur
     public ApplicationUser OfferUser { get; set; } = null!;
 }
