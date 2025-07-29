@@ -1,10 +1,12 @@
-﻿namespace Solution.Models;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace Solution.Models;
 
 public class Offer
 {
     public int Id { get; set; }
     
-    public string IdUser { get; set; } // Dans Identity, l'id est un string UUID exemple => 3f2504e0-4f89-11d3-9a0c-0305e82c3301
+    public string? IdUser { get; set; } // Dans Identity, l'id est un string UUID exemple => 3f2504e0-4f89-11d3-9a0c-0305e82c3301
     
     public string Title { get; set; } = string.Empty;
     
@@ -25,5 +27,6 @@ public class Offer
     public string Image { get; set; } = string.Empty;
     
     // Navigation property vers l'utilisateur
+    [ValidateNever] // 👈 Ignore cette propriété lors de la validation du formulaire à retirer parès tous les test
     public ApplicationUser OfferUser { get; set; } = null!;
 }
