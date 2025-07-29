@@ -41,17 +41,31 @@ namespace Booking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price,Image")] Offer offer)
         {
-            // Assigner l'utilisateur connecté (sécurité)
-            offer.IdUser = GetCurrentUserId();
+            // ⛔ Temporairement, tu peux forcer un Id fictif si l'authentification n'est pas encore active
+            offer.IdUser = "test-user"; // ← À remplacer plus tard par GetCurrentUserId()
 
             if (ModelState.IsValid)
             {
+                Console.WriteLine("Form is valid — inserting offer");
                 await _offerService.CreateOfferAsync(offer);
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                Console.WriteLine("Form is invalid");
+                foreach (var value in ModelState.Values)
+                {
+                    foreach (var error in value.Errors)
+                    {
+                        Console.WriteLine("Validation error: " + error.ErrorMessage);
+                    }
+                }
+            }
 
+            // ⬅ Retourner la vue avec l’objet pour réafficher les erreurs côté Razor
             return View(offer);
         }
+
 
         public async Task<IActionResult> Edit(int id)
         {
@@ -194,5 +208,8 @@ namespace Booking.Controllers
         {
             return await _offerService.OfferExistsAsync(id);
         }
+        
+        
     }
+    
 }
