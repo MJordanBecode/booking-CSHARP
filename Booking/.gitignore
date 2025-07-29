@@ -1,3 +1,40 @@
-.vs
-bin
-obj
+# Files & folders .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs & reports
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+
+# Local Setup
+.vscode/
+.idea/
+.vs/
+
+# Docker
+**/Dockerfile
+docker-compose.override.yml
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Publish files
+**/publish/
+**/out/
+
+# Build files
+*.dbmdl
+*.bak
+*.sql
+*.sqlite

@@ -1,0 +1,19 @@
+{
+  "name": "booking",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "css": "tailwindcss -i ./wwwroot/css/index.css -o ./wwwroot/css/output.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "jquery": "^3.7.1"
+  }
+}

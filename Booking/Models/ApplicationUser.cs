@@ -1,26 +1,25 @@
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+using Solution.Models;
 
-namespace Booking.Models
+public class ApplicationUser : IdentityUser
 {
-    public class ApplicationUser : IdentityUser
-    {
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
+    [Required]
+    [StringLength(55)]
+    public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-        
-        [Required]
-        [Phone]
-        [Display(Name = "Phone Number")]
-        public override string PhoneNumber { get; set; }
-        
-        // Propriété calculée pour afficher le nom complet
-        public string FullName => $"{FirstName} {LastName}";
-    }
+    [Required]
+    [StringLength(55)]
+    public string LastName { get; set; }
+    
+    /* il ne faut pas le définir ici parce que par défaut, identity là déjà intégré. 
+     [Required]
+    [StringLength(30)]
+    public string PhoneNumber { get; set; }*/
+    
+
+    public DateTime DateCreation { get; set; } = DateTime.UtcNow;
+
+    // Navigation vers vos entités personnalisées
+    public virtual ICollection<Offer> Offers { get; set; }
 }
