@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using Booking.Service;
 using Solution.Models;
 
@@ -15,23 +16,28 @@ namespace Booking.Controllers
             _offerService = offerService;
         }
 
+        // Accessible à tous (y compris les guests non connectés)
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var item = await _offerService.GetAllOffersAsync();
-            return View(item);
+            var offers = await _offerService.GetAllOffersAsync();
+            return View(offers);
         }
 
+        // Accessible à tous (y compris les guests non connectés)
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var item = await _offerService.GetOfferWithRelationsAsync(id);
-            if (item == null)
+            var offer = await _offerService.GetOfferWithRelationsAsync(id);
+            if (offer == null)
             {
                 return NotFound();
             }
-
-            return View(item);
+            return View(offer);
         }
 
+        // Seuls les Hosts et Admins peuvent créer des offres
+        [Authorize(Policy = "HostOrAdmin")]
         public IActionResult Create()
         {
             return View();
@@ -39,10 +45,11 @@ namespace Booking.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "HostOrAdmin")]
         public async Task<IActionResult> Create([Bind("Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price,Image")] Offer offer)
         {
-            // ⛔ Temporairement, tu peux forcer un Id fictif si l'authentification n'est pas encore active
-            offer.IdUser = "test-user"; // ← À remplacer plus tard par GetCurrentUserId()
+            // Récupérer l'ID de l'utilisateur connecté
+            offer.IdUser = GetCurrentUserId();
 
             if (ModelState.IsValid)
             {
@@ -62,29 +69,31 @@ namespace Booking.Controllers
                 }
             }
 
-            // ⬅ Retourner la vue avec l’objet pour réafficher les erreurs côté Razor
             return View(offer);
         }
 
-
+        // Seul le propriétaire de l'offre ou l'admin peut modifier
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            var item = await _offerService.GetOfferByIdAsync(id);
-            if (item == null)
+            var offer = await _offerService.GetOfferByIdAsync(id);
+            if (offer == null)
             {
                 return NotFound();
             }
 
-            if (item.IdUser != GetCurrentUserId())
+            // Vérifier si l'utilisateur est le propriétaire ou un admin
+            if (!await CanUserModifyOffer(offer))
             {
-                return Forbid();
+                return Forbid("Vous n'êtes pas autorisé à modifier cette offre.");
             }
 
-            return View(item);
+            return View(offer);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price,Image")] Offer offer)
         {
             if (id != offer.Id)
@@ -92,74 +101,66 @@ namespace Booking.Controllers
                 return NotFound();
             }
 
-            try
+            var existingOffer = await _offerService.GetOfferByIdAsync(id);
+            if (existingOffer == null)
             {
-                var existingOffer = await _offerService.GetOfferByIdAsync(id);
-                if (existingOffer == null)
-                {
-                    return NotFound();
-                }
-
-                if (existingOffer.IdUser != GetCurrentUserId())
-                {
-                    return Forbid();
-                }
-
-                offer.IdUser = existingOffer.IdUser;
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        await _offerService.UpdateOfferAsync(offer);
-                        return RedirectToAction(nameof(Index));
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (!await OfferExists(offer.Id))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                }
+                return NotFound();
             }
-            catch (UnauthorizedAccessException)
+
+            // Vérifier si l'utilisateur est le propriétaire ou un admin
+            if (!await CanUserModifyOffer(existingOffer))
             {
-                return RedirectToAction("Login", "Account");
+                return Forbid("Vous n'êtes pas autorisé à modifier cette offre.");
+            }
+
+            // Conserver l'ID du propriétaire original
+            offer.IdUser = existingOffer.IdUser;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _offerService.UpdateOfferAsync(offer);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await OfferExists(offer.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
 
             return View(offer);
         }
 
+        // Seul le propriétaire de l'offre ou l'admin peut supprimer
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            try
+            var offer = await _offerService.GetOfferByIdAsync(id);
+            if (offer == null)
             {
-                var offer = await _offerService.GetOfferByIdAsync(id);
-                if (offer == null)
-                {
-                    return NotFound();
-                }
-
-                if (offer.IdUser != GetCurrentUserId())
-                {
-                    return Forbid("Vous n'êtes pas autorisé à supprimer cette offre.");
-                }
-
-                return View(offer);
+                return NotFound();
             }
-            catch (UnauthorizedAccessException)
+
+            // Vérifier si l'utilisateur est le propriétaire ou un admin
+            if (!await CanUserModifyOffer(offer))
             {
-                return RedirectToAction("Login", "Account");
+                return Forbid("Vous n'êtes pas autorisé à supprimer cette offre.");
             }
+
+            return View(offer);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
@@ -170,7 +171,8 @@ namespace Booking.Controllers
                     return NotFound();
                 }
 
-                if (offer.IdUser != GetCurrentUserId())
+                // Vérifier si l'utilisateur est le propriétaire ou un admin
+                if (!await CanUserModifyOffer(offer))
                 {
                     return Forbid("Vous n'êtes pas autorisé à supprimer cette offre.");
                 }
@@ -188,10 +190,6 @@ namespace Booking.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch (UnauthorizedAccessException)
-            {
-                return RedirectToAction("Login", "Account");
-            }
             catch (Exception)
             {
                 TempData["ErrorMessage"] = "Une erreur inattendue s'est produite.";
@@ -199,17 +197,48 @@ namespace Booking.Controllers
             }
         }
 
+        // Méthodes utilitaires privées
         private string GetCurrentUserId()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
         }
 
         private async Task<bool> OfferExists(int id)
         {
             return await _offerService.OfferExistsAsync(id);
         }
-        
-        
+
+        private async Task<bool> CanUserModifyOffer(Offer offer)
+        {
+            var currentUserId = GetCurrentUserId();
+            
+            // L'admin peut tout modifier
+            if (User.IsInRole("Admin"))
+            {
+                return true;
+            }
+            
+            // Le propriétaire peut modifier ses propres offres
+            return offer.IdUser == currentUserId;
+        }
+
+        // Action réservée aux admins - Gestion de toutes les offres
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminManage()
+        {
+            var allOffers = await _offerService.GetAllOffersAsync();
+            return View("AdminManage", allOffers);
+        }
+
+        // Action pour voir ses propres offres (Host)
+        [Authorize(Policy = "HostOrAdmin")]
+        public async Task<IActionResult> MyOffers()
+        {
+            var currentUserId = GetCurrentUserId();
+            var offers = await _offerService.GetAllOffersAsync();
+            var userOffers = offers.Where(o => o.IdUser == currentUserId).ToList();
+            
+            return View(userOffers);
+        }
     }
-    
 }
