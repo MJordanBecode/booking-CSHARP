@@ -1,8 +1,14 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Booking.Data;
 using Booking.Service;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Solution.Models;
 
 var builder = WebApplication.CreateBuilder(args);

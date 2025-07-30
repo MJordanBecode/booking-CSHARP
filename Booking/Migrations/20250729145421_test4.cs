@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Booking.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:Booking/Migrations/20250729145421_test4.cs
     public partial class test4 : Migration
+========
+    public partial class test3 : Migration
+>>>>>>>> 3cc292b75c6dd1bcef4acc68430c4ae1551db671:Booking/Migrations/20250729145116_test3.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
