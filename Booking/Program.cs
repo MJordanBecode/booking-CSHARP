@@ -10,47 +10,63 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Solution.Models;
+using Solution.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Connexion SQL Server ici
+// Connexion SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
                        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString)); // <-- SQL Server
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-// Permet de cibler le fichier IOfferService et OfferService 
+// Service pour les offres
 builder.Services.AddScoped<IOfferService, OfferService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
-// Configuration Identity
+// Configuration Identity avec rôles
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => 
         options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// Configuration du cookie d'authentification => il faut toujours la mettre après la config identity, ainsi ça peut fonctionner sans problèmes
+// Configuration du cookie d'authentification
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromDays(14);
-    options.LoginPath = "/Identity/Account/Login"; //chemin de login, qui permet de récupérer le token d'authentification
+    options.LoginPath = "/Identity/Account/Login";
     options.LogoutPath = "/Identity/Account/Logout";
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
     options.SlidingExpiration = true;
 });
 
-// ** IMPORTANT : Ajouter Razor Pages pour Identity **
+// Ajout des politiques d'autorisation
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("HostOrAdmin", policy => 
+        policy.RequireRole("Host", "Admin"));
+    
+    options.AddPolicy("AdminOnly", policy => 
+        policy.RequireRole("Admin"));
+});
+
 builder.Services.AddRazorPages();
-
-// Ajout du service IEmailSender "factice" pour éviter l’erreur lors de l’inscription
 builder.Services.AddSingleton<IEmailSender, NullEmailSender>();
-
-// Controllers + Views
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// Initialisation des rôles
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    
+    await InitializeRoles(roleManager, userManager);
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -75,18 +91,47 @@ app.MapControllerRoute(
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-// Mapper les Razor Pages (ex: pages d'Identity)
 app.MapRazorPages().WithStaticAssets();
 
 app.Run();
 
+// Méthode pour initialiser les rôles
+async Task InitializeRoles(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+{
+    string[] roleNames = { "Admin", "Host", "Guest" };
+    
+    foreach (var roleName in roleNames)
+    {
+        if (!await roleManager.RoleExistsAsync(roleName))
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+    
+    // Créer un admin par défaut (optionnel)
+    var adminEmail = "admin@booking.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    
+    if (adminUser == null)
+    {
+        adminUser = new ApplicationUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            FirstName = "Admin",
+            LastName = "System",
+            EmailConfirmed = true
+        };
+        
+        await userManager.CreateAsync(adminUser, "Admin123!");
+        await userManager.AddToRoleAsync(adminUser, "Admin");
+    }
+}
 
-// Implémentation "vide" pour IEmailSender (ne fait rien)
 public class NullEmailSender : IEmailSender
 {
     public Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
-        // Pas d’envoi réel, juste un retour réussi
         return Task.CompletedTask;
     }
 }
