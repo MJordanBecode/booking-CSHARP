@@ -1,6 +1,8 @@
 # Files & folders .NET
-bin/
-obj/
+bin/*
+obj/*
+
+
 *.user
 *.suo
 *.userosscache

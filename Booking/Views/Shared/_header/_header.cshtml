@@ -10,6 +10,26 @@
         <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Produits</a>
         <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Services</a>
         <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Contact</a>
+        <nav>
+            <ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>Bonjour, @User.Identity.Name!</li>
+                    <li>
+                        <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutForm">
+                            <button type="submit" class="text-gray-700 hover:text-blue-500 transition-colors">Se déconnecter</button>
+                        </form>
+                    </li>
+
+                    <!-- autres liens pour utilisateur connecté -->
+                }
+                else
+                {
+                    <li><a href="/Identity/Account/Login">Se connecter</a></li>
+                    <li><a href="/Identity/Account/Register">S’inscrire</a></li>
+                }
+            </ul>
+        </nav>
     </div>
     
     <!-- Bouton Burger (visible seulement sur mobile) -->

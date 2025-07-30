@@ -14,15 +14,23 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Solution.Models;
+
 
 namespace Booking.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;  //Changement de <IdentityUser> par <ApplicationUser
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        // public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        // {
+        //     _signInManager = signInManager;
+        //     _logger = logger;
+        // } Éléments qu'on a dû changer pour ApplicationUser
+        
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
