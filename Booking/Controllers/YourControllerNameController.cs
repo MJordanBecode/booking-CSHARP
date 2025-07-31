@@ -1,45 +1,72 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Booking.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Booking.Service;
 using Solution.Models;
+using Solution.Service;
 
 namespace Booking.Controllers
 {
     public class OffersController : Controller
     {
         private readonly IOfferService _offerService;
+        private readonly IUserService _userService;
+        private readonly IWebHostEnvironment _environment;
 
-        public OffersController(IOfferService offerService)
+        public OffersController(IOfferService offerService, IUserService userService, IWebHostEnvironment environment)
         {
             _offerService = offerService;
+            _userService = userService;
+            _environment = environment;
         }
+        //
+        // [AllowAnonymous]
+        // public async Task<IActionResult> Index()
+        // {
+        //     var offers = await _offerService.GetAllOffersAsync();
+        //     return View(offers);
+        // }
 
-        // Accessible à tous (y compris les guests non connectés)
+        
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var offers = await _offerService.GetAllOffersAsync();
-            return View(offers);
-        }
 
-        // Accessible à tous (y compris les guests non connectés)
+            var cards = offers.Select(o => new CardViewModel
+            {
+                Title = o.Title,
+                location = o.Location,
+                Image = o.Image,
+                note = o.Note, // adapte selon ta propriété réelle
+                numberOfBeds = o.BedNumber,
+                numberOfBaths = o.BathNumber,
+                numberOfRooms = o.NumberOfRooms,
+                price = o.Price
+            }).ToList();
+
+            return View("~/Views/Home/Index.cshtml", cards);
+        }
+        
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var offer = await _offerService.GetOfferWithRelationsAsync(id);
             if (offer == null)
-            {
                 return NotFound();
-            }
+
             return View(offer);
         }
 
-        // Seuls les Hosts et Admins peuvent créer des offres
         [Authorize(Policy = "HostOrAdmin")]
         public IActionResult Create()
         {
@@ -49,47 +76,47 @@ namespace Booking.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "HostOrAdmin")]
-        public async Task<IActionResult> Create([Bind("Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price,Image")] Offer offer)
+        public async Task<IActionResult> Create([Bind("Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price")] Offer offer, IFormFile ImageFile)
         {
-            // Récupérer l'ID de l'utilisateur connecté
             offer.IdUser = GetCurrentUserId();
 
             if (ModelState.IsValid)
             {
-                Console.WriteLine("Form is valid — inserting offer");
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "offres");
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    var fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
+                    var extension = Path.GetExtension(ImageFile.FileName);
+                    var uniqueFileName = $"{fileName}_{Guid.NewGuid()}{extension}";
+
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    offer.Image = Path.Combine("images", "offres", uniqueFileName).Replace("\\", "/");
+                }
+
                 await _offerService.CreateOfferAsync(offer);
                 return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                Console.WriteLine("Form is invalid");
-                foreach (var value in ModelState.Values)
-                {
-                    foreach (var error in value.Errors)
-                    {
-                        Console.WriteLine("Validation error: " + error.ErrorMessage);
-                    }
-                }
             }
 
             return View(offer);
         }
 
-        // Seul le propriétaire de l'offre ou l'admin peut modifier
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var offer = await _offerService.GetOfferByIdAsync(id);
             if (offer == null)
-            {
                 return NotFound();
-            }
 
-            // Vérifier si l'utilisateur est le propriétaire ou un admin
             if (!await CanUserModifyOffer(offer))
-            {
                 return Forbid("Vous n'êtes pas autorisé à modifier cette offre.");
-            }
 
             return View(offer);
         }
@@ -100,23 +127,15 @@ namespace Booking.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price,Image")] Offer offer)
         {
             if (id != offer.Id)
-            {
                 return NotFound();
-            }
 
             var existingOffer = await _offerService.GetOfferByIdAsync(id);
             if (existingOffer == null)
-            {
                 return NotFound();
-            }
 
-            // Vérifier si l'utilisateur est le propriétaire ou un admin
             if (!await CanUserModifyOffer(existingOffer))
-            {
                 return Forbid("Vous n'êtes pas autorisé à modifier cette offre.");
-            }
 
-            // Conserver l'ID du propriétaire original
             offer.IdUser = existingOffer.IdUser;
 
             if (ModelState.IsValid)
@@ -129,34 +148,24 @@ namespace Booking.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!await OfferExists(offer.Id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
             }
 
             return View(offer);
         }
 
-        // Seul le propriétaire de l'offre ou l'admin peut supprimer
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var offer = await _offerService.GetOfferByIdAsync(id);
             if (offer == null)
-            {
                 return NotFound();
-            }
 
-            // Vérifier si l'utilisateur est le propriétaire ou un admin
             if (!await CanUserModifyOffer(offer))
-            {
                 return Forbid("Vous n'êtes pas autorisé à supprimer cette offre.");
-            }
 
             return View(offer);
         }
@@ -170,26 +179,17 @@ namespace Booking.Controllers
             {
                 var offer = await _offerService.GetOfferByIdAsync(id);
                 if (offer == null)
-                {
                     return NotFound();
-                }
 
-                // Vérifier si l'utilisateur est le propriétaire ou un admin
                 if (!await CanUserModifyOffer(offer))
-                {
                     return Forbid("Vous n'êtes pas autorisé à supprimer cette offre.");
-                }
 
                 bool deleted = await _offerService.DeleteOfferAsync(id, GetCurrentUserId());
 
                 if (deleted)
-                {
                     TempData["SuccessMessage"] = "Offre supprimée avec succès !";
-                }
                 else
-                {
                     TempData["ErrorMessage"] = "Erreur lors de la suppression de l'offre.";
-                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -200,7 +200,58 @@ namespace Booking.Controllers
             }
         }
 
-        // Méthodes utilitaires privées
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized();
+
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null)
+                return NotFound();
+
+            return Json(new
+            {
+                user.Id,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.PhoneNumber
+            });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetCurrentUserRoles()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized();
+
+            var roles = await _userService.GetUserRolesAsync(userId);
+            return Json(new { roles });
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminManage()
+        {
+            var allOffers = await _offerService.GetAllOffersAsync();
+            return View("AdminManage", allOffers);
+        }
+
+        [Authorize(Policy = "HostOrAdmin")]
+        public async Task<IActionResult> MyOffers()
+        {
+            var currentUserId = GetCurrentUserId();
+            var offers = await _offerService.GetAllOffersAsync();
+            var userOffers = offers.Where(o => o.IdUser == currentUserId).ToList();
+
+            return View(userOffers);
+        }
+
+        // Méthodes utilitaires
         private string GetCurrentUserId()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
@@ -214,34 +265,11 @@ namespace Booking.Controllers
         private async Task<bool> CanUserModifyOffer(Offer offer)
         {
             var currentUserId = GetCurrentUserId();
-            
-            // L'admin peut tout modifier
+
             if (User.IsInRole("Admin"))
-            {
                 return true;
-            }
-            
-            // Le propriétaire peut modifier ses propres offres
+
             return offer.IdUser == currentUserId;
-        }
-
-        // Action réservée aux admins - Gestion de toutes les offres
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AdminManage()
-        {
-            var allOffers = await _offerService.GetAllOffersAsync();
-            return View("AdminManage", allOffers);
-        }
-
-        // Action pour voir ses propres offres (Host)
-        [Authorize(Policy = "HostOrAdmin")]
-        public async Task<IActionResult> MyOffers()
-        {
-            var currentUserId = GetCurrentUserId();
-            var offers = await _offerService.GetAllOffersAsync();
-            var userOffers = offers.Where(o => o.IdUser == currentUserId).ToList();
-            
-            return View(userOffers);
         }
     }
 }

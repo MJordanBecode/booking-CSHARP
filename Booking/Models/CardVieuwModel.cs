@@ -17,6 +17,6 @@
         
         public int price { get; set; }
         
-        public int note {get; set;}
+        public double note {get; set;}
     }
 }

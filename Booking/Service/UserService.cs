@@ -78,4 +78,10 @@ namespace Solution.Service;
             var result = await _userManager.AddToRoleAsync(user, "Guest");
             return result.Succeeded;
         }
+        
+        public async Task<ApplicationUser?> GetUserByIdAsync(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
+
     }

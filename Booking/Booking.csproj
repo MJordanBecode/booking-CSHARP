@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\pages\" />
+    <Folder Include="wwwroot\images\offres\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

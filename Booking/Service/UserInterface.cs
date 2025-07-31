@@ -13,5 +13,7 @@ namespace Solution.Service
         Task<IEnumerable<ApplicationUser>> GetUsersInRoleAsync(string roleName);
         Task<bool> PromoteToHostAsync(string userId);
         Task<bool> DemoteFromHostAsync(string userId);
+        Task<ApplicationUser?> GetUserByIdAsync(string userId);
+
     }
 }
