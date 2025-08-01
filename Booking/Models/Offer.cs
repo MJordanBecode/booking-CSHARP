@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Solution.Models;
 
-namespace Solution.Models;
+namespace Booking.Models;
 
 public class Offer
 {

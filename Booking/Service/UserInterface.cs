@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Booking.Models;
 using Microsoft.AspNetCore.Identity;
 using Solution.Models;
 

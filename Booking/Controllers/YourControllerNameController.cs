@@ -28,33 +28,14 @@ namespace Booking.Controllers
             _userService = userService;
             _environment = environment;
         }
-        //
-        // [AllowAnonymous]
-        // public async Task<IActionResult> Index()
-        // {
-        //     var offers = await _offerService.GetAllOffersAsync();
-        //     return View(offers);
-        // }
 
+    
         
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var offers = await _offerService.GetAllOffersAsync();
-
-            var cards = offers.Select(o => new CardViewModel
-            {
-                Title = o.Title,
-                location = o.Location,
-                Image = o.Image,
-                note = o.Note, // adapte selon ta propriété réelle
-                numberOfBeds = o.BedNumber,
-                numberOfBaths = o.BathNumber,
-                numberOfRooms = o.NumberOfRooms,
-                price = o.Price
-            }).ToList();
-
-            return View("~/Views/Home/Index.cshtml", cards);
+            return View("~/Views/Home/Index.cshtml", offers);  // ✅ PAS de transformation en CardViewModel
         }
         
         [AllowAnonymous]
@@ -76,9 +57,9 @@ namespace Booking.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "HostOrAdmin")]
-        public async Task<IActionResult> Create([Bind("Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price")] Offer offer, IFormFile ImageFile)
+        public async Task<IActionResult> Create(Offer offer, IFormFile ImageFile)
         {
-            offer.IdUser = GetCurrentUserId();
+            offer.IdUser = GetCurrentUserId(); // récupère l'ID utilisateur connecté
 
             if (ModelState.IsValid)
             {
@@ -102,11 +83,12 @@ namespace Booking.Controllers
                 }
 
                 await _offerService.CreateOfferAsync(offer);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
 
             return View(offer);
         }
+
 
         [Authorize]
         public async Task<IActionResult> Edit(int id)

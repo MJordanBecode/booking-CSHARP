@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Booking.Data;
+using Booking.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ using Solution.Models;
 // <-- pour IFormFile
 // <-- pour IWebHostEnvironment
 
-namespace Booking.Views.Offers  // ⚠️ Attention au namespace, ça devrait être Pages.Offers, pas Views.Offers
+namespace Booking.Views.Offers  
 {
     [Authorize(Roles = "Host")]
     public class CreateModel : PageModel
@@ -71,7 +72,7 @@ namespace Booking.Views.Offers  // ⚠️ Attention au namespace, ça devrait ê
             _context.Offers.Add(Offer);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Offers/Index");
+            return RedirectToPage("/Home/Index");
         }
     }
 }
