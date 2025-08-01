@@ -51,6 +51,10 @@ builder.Services.AddAuthorization(options =>
     
     options.AddPolicy("AdminOnly", policy => 
         policy.RequireRole("Admin"));
+    
+    // options.AddPolicy("GuestOnly", policy =>
+    //     policy.RequireAssertion(context =>
+    //         context.User.Identity != null && !context.User.Identity.IsAuthenticated));
 });
 
 builder.Services.AddRazorPages();
