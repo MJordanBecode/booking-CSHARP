@@ -6,9 +6,9 @@
     
     <!-- Menu Desktop (caché sur mobile) -->
     <nav class="hidden md:flex space-x-6 items-center">
-        <a asp-page="/Index" class="text-gray-700 hover:text-blue-500 transition-colors">Accueil</a>
-        <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Produits</a>
-        <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Services</a>
+        <a href="/" class="text-gray-700 hover:text-blue-500 transition-colors">Accueil</a>
+        <a asp-controller="About" asp-action="About" class="text-gray-700 hover:text-blue-500 transition-colors">About Us</a>
+        <a asp-controller="Offers" asp-action="Create" class="text-gray-700 hover:text-blue-500 transition-colors">Create Offer</a>
         <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Contact</a>
 
         @if (User.Identity.IsAuthenticated)
@@ -39,11 +39,11 @@
 
 
 <!-- Menu Mobile (plein écran, caché par défaut) -->
-<div id="mobileMenu" class="fixed inset-0 z-50 bg-white bg-fixed md:hidden h-screen menu-closed">
+<div id="mobileMenu" class="fixed inset-0 z-50 bg-white bg-fixed md:hidden h-screen  overflow-y-auto menu-closed">
     <!-- Conteneur principal centré verticalement -->
     <div class="flex flex-col m-x-4 h-full space-y-4 ">
         
-        <div class="bg-pink-300 relative flex items-center justify-end w-full px-6 py-2 mt-4 mb-4">
+        <div class=" relative flex items-center justify-end w-full px-6 py-2 mt-4 mb-4">
             <!-- Titre centré en absolu -->
             <p class="absolute left-1/2 -translate-x-1/2  font-semibold text-center text-2xl">Welcome to Jostan's</p>
 
@@ -101,57 +101,66 @@
 
 
             <!-- Item : Create an Offer -->
-            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
+            <a asp-controller="Offers" asp-action="Create" class="block">
+                <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
         
-                <div class="bg-[#DCFCE7] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
-                    <i data-lucide="circle-plus" class="w-6 h-6 text-[#16A34A] cursor-pointer"></i>
-                </div>
-        
-                <div class="flex justify-between items-center w-full">
-                    <div class="ml-4">
-                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">Create an Offer</a>
-                        <p class="text-sm text-gray-600">Post your first item</p>
+                    <div class="bg-[#DCFCE7] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                        <i data-lucide="circle-plus" class="w-6 h-6 text-[#16A34A] cursor-pointer"></i>
                     </div>
+        
+                    <div class="flex justify-between items-center w-full">
+                        <div class="ml-4">
+                            <p class="text-xl text-gray-700 hover:text-blue-500">Create an Offer</p>
+                            <p class="text-sm text-gray-600">Post your first item</p>
+                        </div>
 
-                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                        <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                    </div>
                 </div>
-            </div>
+            </a>
+            
 
             <!-- Item : About Us -->
-            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
+            <a asp-controller="About" asp-action="About" class="block">
+                <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
         
-                <div class="bg-[#F3E8FF] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
-                    <i data-lucide="users" class="w-6 h-6 text-[#9333EA] cursor-pointer "></i>
-                </div>
-        
-
-                <div class="flex justify-between items-center w-full">
-                    <div class="ml-4">
-                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">About Us</a>
-                        <p class="text-sm text-gray-600">Who we are</p>
+                    <div class="bg-[#F3E8FF] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                        <i data-lucide="users" class="w-6 h-6 text-[#9333EA] cursor-pointer "></i>
                     </div>
+        
 
-                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                    <div class="flex justify-between items-center w-full">
+                        <div class="ml-4">
+                            <p class="text-xl text-gray-700 hover:text-blue-500">About Us</p>
+                            <p class="text-sm text-gray-600">Who we are</p>
+                        </div>
+
+                        <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                    </div>
                 </div>
-            </div>
+            </a>
+            
 
             <!-- Item : Login -->
-            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
+            <a href="/Identity/Account/Login">
+                <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
         
-                <div class="bg-[#FFEDD5] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
-                    <i data-lucide="log-in" class="w-12 h-12 text-[#EE712E] cursor-pointer "></i>
-                </div>
-        
-
-                <div class="flex justify-between items-center w-full">
-                    <div class="ml-4">
-                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">Login</a>
-                        <p class="text-sm text-gray-600">Access your account</p>
+                    <div class="bg-[#FFEDD5] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                        <i data-lucide="log-in" class="w-12 h-12 text-[#EE712E] cursor-pointer "></i>
                     </div>
+        
 
-                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                    <div class="flex justify-between items-center w-full">
+                        <div class="ml-4">
+                            <p href="#" class="text-xl text-gray-700 hover:text-blue-500">Login</p>
+                            <p class="text-sm text-gray-600">Access your account</p>
+                        </div>
+
+                        <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+                    </div>
                 </div>
-            </div>
+            </a>
+            
         </div>
         
         
