@@ -253,5 +253,10 @@ namespace Booking.Controllers
 
             return offer.IdUser == currentUserId;
         }
+        
+        public IActionResult About()
+        {
+            return View();
+        }
     }
 }
