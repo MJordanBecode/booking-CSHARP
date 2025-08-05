@@ -5,32 +5,27 @@
     </div>
     
     <!-- Menu Desktop (caché sur mobile) -->
-    <div class="hidden md:flex space-x-6">
-        <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Accueil</a>
+    <nav class="hidden md:flex space-x-6 items-center">
+        <a asp-page="/Index" class="text-gray-700 hover:text-blue-500 transition-colors">Accueil</a>
         <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Produits</a>
         <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Services</a>
         <a href="#" class="text-gray-700 hover:text-blue-500 transition-colors">Contact</a>
-        <nav>
-            <ul>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li>Bonjour, @User.Identity.Name!</li>
-                    <li>
-                        <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutForm">
-                            <button type="submit" class="text-gray-700 hover:text-blue-500 transition-colors">Se déconnecter</button>
-                        </form>
-                    </li>
 
-                    <!-- autres liens pour utilisateur connecté -->
-                }
-                else
-                {
-                    <li><a href="/Identity/Account/Login">Se connecter</a></li>
-                    <li><a href="/Identity/Account/Register">S’inscrire</a></li>
-                }
-            </ul>
-        </nav>
-    </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <span class="text-gray-700">Bonjour, @User.Identity.Name!</span>
+            <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutForm" class="inline">
+                <button type="submit" class="text-gray-700 hover:text-blue-500 transition-colors">Se déconnecter</button>
+            </form>
+        }
+        else
+        {
+            <div class="flex space-x-3">
+                <a href="/Identity/Account/Login" class="px-4 py-1 border border-blue-500 text-blue-500  text-sm rounded hover:bg-blue-500 hover:text-white transition">Se connecter</a>
+                <a href="/Identity/Account/Register" class="px-4 py-1 border border-green-500 text-green-500 rounded hover:bg-green-500 hover:text-white transition">S’inscrire</a>
+            </div>
+        }
+    </nav>
     
     <!-- Bouton Burger (visible seulement sur mobile) -->
     <div class="md:hidden">
@@ -44,13 +39,9 @@
 
 
 <!-- Menu Mobile (plein écran, caché par défaut) -->
-<div id="mobileMenu" class="fixed inset-0 z-50 bg-white bg-fixed md:hidden h-screen open-menu">
+<div id="mobileMenu" class="fixed inset-0 z-50 bg-white bg-fixed md:hidden h-screen menu-closed">
     <!-- Conteneur principal centré verticalement -->
     <div class="flex flex-col m-x-4 h-full space-y-4 ">
-        @* *@
-        @* <div class="flex justify-content-end mt-2"> *@
-        @*     *@
-        @* </div> *@
         
         <div class="bg-pink-300 relative flex items-center justify-end w-full px-6 py-2 mt-4 mb-4">
             <!-- Titre centré en absolu -->
@@ -90,21 +81,24 @@
         <!-- Liens de navigation -->
         <div class="px-1 py-4 space-y-4">
             <!-- Item : Home -->
-            <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">
-                <!-- Icône avec fond centré -->
-                <div class="bg-[#DBEAFE] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
-                    <i data-lucide="home" class="w-6 h-6 text-[#2563EB]"></i>
-                </div>  
+            <a asp-action="Index" asp-controller="Offers" class="block">
+                <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full hover:bg-blue-50 transition">
+                    <!-- Icône avec fond centré -->
+                    <div class="bg-[#DBEAFE] rounded-lg p-2 flex items-center justify-center mr-4 w-10 h-10">
+                        <i data-lucide="home" class="w-6 h-6 text-[#2563EB]"></i>
+                    </div>  
 
-                <!-- Texte + flèche -->
-                <div class="flex justify-between items-center w-full">
-                    <div class="ml-2">
-                        <a href="#" class="text-xl text-gray-700 hover:text-blue-500">Home</a>
-                        <p class="text-sm text-gray-600">Return to the Home</p>
+                    <!-- Texte + flèche -->
+                    <div class="flex justify-between items-center w-full">
+                        <div class="ml-2">
+                            <p class="text-xl text-gray-700 hover:text-blue-500">Home</p>
+                            <p class="text-sm text-gray-600">Return to the Home</p>
+                        </div>
+                        <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500"></i>
                     </div>
-                    <i data-lucide="circle-chevron-right" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
                 </div>
-            </div>
+            </a>
+
 
             <!-- Item : Create an Offer -->
             <div class="flex items-center p-3 shadow-md outline outline-1 outline-black/30 rounded-lg w-full">

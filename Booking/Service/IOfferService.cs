@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Booking.Data;
+using Booking.Models;
 using Booking.Service;
 using Solution.Models;
 

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Booking.Data;
+using Booking.Models;
+using Solution.Models;
 
 
 //Le Formulaire doit être un formulaire pour que ça fonctionne

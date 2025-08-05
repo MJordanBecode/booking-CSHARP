@@ -1,0 +1,31 @@
+﻿@model Booking.Models.Offer
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["HideSearchBar"] = true;
+}
+
+<div>
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">@Model.Title</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Image -->
+        <div>
+            <img src="~/@Model.Image" alt="@Model.Title" class="w-full h-64 object-cover rounded-xl shadow" />
+        </div>
+
+        <!-- Infos principales -->
+        <div class="space-y-4">
+            <p><span class="font-semibold">Description:</span> @Model.Description</p>
+            <p><span class="font-semibold">Localisation:</span> @Model.Location</p>
+            <p><span class="font-semibold">Type:</span> @Model.Type</p>
+            <p><span class="font-semibold">Chambres:</span> @Model.NumberOfRooms</p>
+            <p><span class="font-semibold">Lits:</span> @Model.BedNumber</p>
+            <p><span class="font-semibold">Salles de bain:</span> @Model.BathNumber</p>
+            <p><span class="font-semibold">Prix par nuit:</span> <span class="text-green-600 font-bold">@Model.Price €</span></p>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <a href="@Url.Action("Index", "Offers")" class="text-blue-600 hover:underline">&larr; Retour aux offres</a>
+    </div>
+</div>

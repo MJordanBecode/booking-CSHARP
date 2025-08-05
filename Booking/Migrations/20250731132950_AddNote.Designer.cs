@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Booking/Migrations/20250729075130_InitialMigrations.Designer.cs
-    [Migration("20250729075130_InitialMigrations")]
-    partial class InitialMigrations
-========
-    [Migration("20250729102453_test2")]
-    partial class test2
->>>>>>>> e60024e273d1da558e8e4891aa4ea75eb82d6931:Booking/Migrations/20250729102453_test2.Designer.cs
+    [Migration("20250731132950_AddNote")]
+    partial class AddNote
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,12 +105,10 @@ namespace Booking.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -152,12 +145,10 @@ namespace Booking.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -310,18 +301,20 @@ namespace Booking.Migrations
                         .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("IdUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<double>("Note")
+                        .HasColumnType("float");
 
                     b.Property<int>("NumberOfRooms")
                         .HasColumnType("int");
@@ -329,9 +322,9 @@ namespace Booking.Migrations
                     b.Property<string>("OfferUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<int>("Price")
                         .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -361,8 +354,9 @@ namespace Booking.Migrations
                             IdUser = "user1-guid-12345",
                             Image = "https://media.istockphoto.com/id/1293762741/fr/photo/int%C3%A9rieur-moderne-de-salle-de-vie-rendu-3d.jpg?s=612x612&w=0&k=20&c=BKixm6wq1Y6NFFF-8XllknUQvSboRmCmjn_Lm_erHmQ=",
                             Location = "Paris, France",
+                            Note = 0.0,
                             NumberOfRooms = 3,
-                            Price = 120.50m,
+                            Price = 120,
                             Title = "Appartement moderne centre-ville",
                             Type = "Appartement"
                         },
@@ -375,8 +369,9 @@ namespace Booking.Migrations
                             IdUser = "user2-guid-67890",
                             Image = "https://www.vacationkey.com/photos/1/1/119108-1.jpg",
                             Location = "Nice, France",
+                            Note = 0.0,
                             NumberOfRooms = 6,
-                            Price = 285.00m,
+                            Price = 285,
                             Title = "Villa avec piscine près de la plage",
                             Type = "Villa"
                         });
@@ -438,8 +433,7 @@ namespace Booking.Migrations
                     b.HasOne("Solution.Models.ApplicationUser", null)
                         .WithMany("Offers")
                         .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Solution.Models.ApplicationUser", "OfferUser")
                         .WithMany()

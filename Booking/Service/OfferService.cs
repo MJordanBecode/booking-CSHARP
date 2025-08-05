@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Booking.Data;
+using Booking.Models;
 using Solution.Models;
 using Solution.Service;
 

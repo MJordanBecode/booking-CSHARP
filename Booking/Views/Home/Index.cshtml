@@ -1,36 +1,78 @@
-﻿@model List<Booking.Models.CardViewModel>
+﻿@model IEnumerable<Booking.Models.Offer>
 
-@* Script Js, permet d'écrire des du js*@
-@section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(() => {
-                const burgerBtn = document.querySelector("#burgerBtn");
-                const mobileMenu = document.querySelector("#mobileMenu");
-                const closemobilMenu = document.querySelector("#circle-x-close");
-
-                if (burgerBtn && mobileMenu) {
-                    burgerBtn.addEventListener("click", () => {
-                        mobileMenu.classList.remove("menu-closed");
-                        mobileMenu.classList.add("menu-open");
-                        lucide.createIcons();
-                    });
-                }
-
-                if (closemobilMenu && mobileMenu) {
-                    closemobilMenu.addEventListener("click", () => {
-                        // Simplement retirer menu-open et ajouter menu-closed
-                        mobileMenu.classList.remove("menu-open");
-                        mobileMenu.classList.add("menu-closed");
-                        lucide.createIcons();
-                    });
-                }
-
-                lucide.createIcons(); // Initialiser Lucide
-            }, 100);
-        });
-    </script>
-}
+@* $1$ Script Js, permet d'écrire des du js#1# *@
+@* @section Scripts { *@
+@*     <script> *@
+@*         document.addEventListener('DOMContentLoaded', function () { *@
+@*             setTimeout(() => { *@
+@*                 const burgerBtn = document.querySelector("#burgerBtn"); *@
+@*                 const mobileMenu = document.querySelector("#mobileMenu"); *@
+@*                 const closemobilMenu = document.querySelector("#circle-x-close"); *@
+@* *@
+@*                 if (burgerBtn && mobileMenu) { *@
+@*                     burgerBtn.addEventListener("click", () => { *@
+@*                         mobileMenu.classList.remove("menu-closed"); *@
+@*                         mobileMenu.classList.add("menu-open"); *@
+@*                         lucide.createIcons(); *@
+@*                     }); *@
+@*                 } *@
+@* *@
+@*                 if (closemobilMenu && mobileMenu) { *@
+@*                     closemobilMenu.addEventListener("click", () => { *@
+@*                         // Simplement retirer menu-open et ajouter menu-closed *@
+@*                         mobileMenu.classList.remove("menu-open"); *@
+@*                         mobileMenu.classList.add("menu-closed"); *@
+@*                         lucide.createIcons(); *@
+@*                     }); *@
+@*                 } *@
+@* *@
+@*                 lucide.createIcons(); // Initialiser Lucide *@
+@*             }, 100); *@
+@*         }); *@
+@* *@
+@*         fetch('/Offers/GetCurrentUser')  // <-- mets ici ton vrai endpoint backend *@
+@*             .then(res => { *@
+@*                 if (!res.ok) throw new Error('Erreur réseau'); *@
+@*                 return res.json(); *@
+@*             }) *@
+@*             .then(user => { *@
+@*                 console.log("User ID:", user.id); *@
+@*                 console.log("First Name:", user.firstName); *@
+@*                 console.log("Email:", user.email); *@
+@* *@
+@*                 // Exemple: afficher dans un div *@
+@*                 const userInfoDiv = document.getElementById('user-info'); *@
+@*                 if(userInfoDiv){ *@
+@*                     userInfoDiv.textContent = `Connecté : ${user.firstName} ${user.lastName} (${user.email})`; *@
+@*                 } *@
+@*             }) *@
+@*             .catch(err => { *@
+@*                 console.error("Erreur fetch user:", err); *@
+@*             }); *@
+@* *@
+@*         // Récupérer les rôles de l'utilisateur connecté *@
+@*         fetch('/Offers/GetCurrentUserRoles') *@
+@*             .then(res => res.json()) *@
+@*             .then(data => { *@
+@*                 console.log("Rôles :", data.roles); *@
+@* *@
+@*                 if (data.roles.includes("Admin")) { *@
+@*                     // Affiche un bouton d'administration *@
+@*                     const adminBtn = document.getElementById("admin-button"); *@
+@*                     if (adminBtn) adminBtn.style.display = "block"; *@
+@*                 } *@
+@* *@
+@*                 if (data.roles.includes("Host")) { *@
+@*                     const hostBadge = document.getElementById("host-badge"); *@
+@*                     if (hostBadge) hostBadge.style.display = "inline"; *@
+@*                 } *@
+@*             }) *@
+@*             .catch(err => { *@
+@*                 console.error("Erreur lors de la récupération des rôles :", err); *@
+@*             }); *@
+@*     </script> *@
+@* *@
+@* } *@
 
 
 

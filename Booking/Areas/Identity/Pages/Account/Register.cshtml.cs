@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Booking.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,16 +26,18 @@ namespace Booking.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager; 
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager; //Pour gérer les roles, il faut rajouter ça ici 
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager, //Pour gérer les roles, il faut rajouter ça ici 
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -44,6 +47,7 @@ namespace Booking.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager; //Pour gérer les roles, il faut rajouter ça ici 
         }
 
         /// <summary>
@@ -112,6 +116,7 @@ namespace Booking.Areas.Identity.Pages.Account
             [Phone]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
+            
         }
 
 
@@ -133,7 +138,8 @@ namespace Booking.Areas.Identity.Pages.Account
                 // =========================================================
                 //Il faut rajouter les éléments du model manquant ici !! 
                 // =========================================================
-                
+           
+                // Creation du compte jusqu'à =======================================================
                 // Assignation des propriétés personnalisées
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
@@ -146,11 +152,18 @@ namespace Booking.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
+                // ICI =============================================================================
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    
+                    // Ajout du rôle Host à l'utilisateur de manière automatique 
+                    if (!await _roleManager.RoleExistsAsync("Host"))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Host"));
+                    }
+                    await _userManager.AddToRoleAsync(user, "Host");
+                    
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

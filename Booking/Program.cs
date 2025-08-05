@@ -1,12 +1,17 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Booking.Data;
+using Booking.Models;
 using Booking.Service;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Solution.Models;
 using Solution.Service;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +52,10 @@ builder.Services.AddAuthorization(options =>
     
     options.AddPolicy("AdminOnly", policy => 
         policy.RequireRole("Admin"));
+    
+    // options.AddPolicy("GuestOnly", policy =>
+    //     policy.RequireAssertion(context =>
+    //         context.User.Identity != null && !context.User.Identity.IsAuthenticated));
 });
 
 builder.Services.AddRazorPages();
@@ -84,7 +93,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}")
+        pattern: "{controller=Offers}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 app.MapRazorPages().WithStaticAssets();

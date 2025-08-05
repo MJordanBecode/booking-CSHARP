@@ -1,4 +1,5 @@
 ﻿using System;
+using Booking.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Solution.Models;
@@ -151,7 +152,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             BedNumber = 2,
             BathNumber = 1,
             NumberOfRooms = 3,
-            Price = 120.50m,
+            Price = (int)120.50m,
             Image = "https://media.istockphoto.com/id/1293762741/fr/photo/int%C3%A9rieur-moderne-de-salle-de-vie-rendu-3d.jpg?s=612x612&w=0&k=20&c=BKixm6wq1Y6NFFF-8XllknUQvSboRmCmjn_Lm_erHmQ=",
             IdUser = "user1-guid-12345"
         };
@@ -166,7 +167,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             BedNumber = 4,
             BathNumber = 3,
             NumberOfRooms = 6,
-            Price = 285.00m,
+            Price = (int)285.00m,
             Image = "https://www.vacationkey.com/photos/1/1/119108-1.jpg",
             IdUser = "user2-guid-67890"
         };

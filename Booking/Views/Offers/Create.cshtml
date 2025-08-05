@@ -1,7 +1,9 @@
-﻿@model Solution.Models.Offer
+﻿
+@model Booking.Models.Offer
 
 @{
     ViewData["Title"] = "Créer une offre";
+    ViewData["HideSearchBar"] = true;
 }
 
 <div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
@@ -58,7 +60,7 @@
 
         <div>
             <label asp-for="Image" class="block text-sm font-medium">Image (URL ou chemin)</label>
-            <input asp-for="Image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+            <input type="file" asp-for="Image" id="ImageFile" name="ImageFile" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
             <span asp-validation-for="Image" class="text-red-500 text-sm" />
         </div>
 

@@ -4,6 +4,7 @@ using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250730143305_InitialMigrations")]
+    partial class InitialMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,15 +306,12 @@ namespace Booking.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<double>("Note")
-                        .HasColumnType("float");
 
                     b.Property<int>("NumberOfRooms")
                         .HasColumnType("int");
@@ -319,9 +319,9 @@ namespace Booking.Migrations
                     b.Property<string>("OfferUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Price")
+                    b.Property<decimal>("Price")
                         .HasPrecision(10, 2)
-                        .HasColumnType("int");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -351,9 +351,8 @@ namespace Booking.Migrations
                             IdUser = "user1-guid-12345",
                             Image = "https://media.istockphoto.com/id/1293762741/fr/photo/int%C3%A9rieur-moderne-de-salle-de-vie-rendu-3d.jpg?s=612x612&w=0&k=20&c=BKixm6wq1Y6NFFF-8XllknUQvSboRmCmjn_Lm_erHmQ=",
                             Location = "Paris, France",
-                            Note = 0.0,
                             NumberOfRooms = 3,
-                            Price = 120,
+                            Price = 120.50m,
                             Title = "Appartement moderne centre-ville",
                             Type = "Appartement"
                         },
@@ -366,9 +365,8 @@ namespace Booking.Migrations
                             IdUser = "user2-guid-67890",
                             Image = "https://www.vacationkey.com/photos/1/1/119108-1.jpg",
                             Location = "Nice, France",
-                            Note = 0.0,
                             NumberOfRooms = 6,
-                            Price = 285,
+                            Price = 285.00m,
                             Title = "Villa avec piscine près de la plage",
                             Type = "Villa"
                         });

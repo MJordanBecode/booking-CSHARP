@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Solution.Models;
 
-namespace Solution.Models;
+namespace Booking.Models;
 
 public class Offer
 {
@@ -22,11 +24,16 @@ public class Offer
     
     public int NumberOfRooms { get; set; }
     
-    public decimal Price { get; set; }
+    public double Note { get; set; }
     
+    public int Price { get; set; }
+    
+    [Column(TypeName = "nvarchar(max)")]
     public string Image { get; set; } = string.Empty;
     
     // Navigation property vers l'utilisateur
     [ValidateNever] // 👈 Ignore cette propriété lors de la validation du formulaire à retirer parès tous les test
     public ApplicationUser OfferUser { get; set; } = null!;
+
+  
 }
