@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Booking.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrations : Migration
+    public partial class test5 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -175,8 +175,9 @@ namespace Booking.Migrations
                     BedNumber = table.Column<int>(type: "int", nullable: false),
                     BathNumber = table.Column<int>(type: "int", nullable: false),
                     NumberOfRooms = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Note = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<int>(type: "int", precision: 10, scale: 2, nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", maxLength: 500, nullable: false),
                     OfferUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -206,11 +207,11 @@ namespace Booking.Migrations
 
             migrationBuilder.InsertData(
                 table: "Offers",
-                columns: new[] { "Id", "BathNumber", "BedNumber", "Description", "IdUser", "Image", "Location", "NumberOfRooms", "OfferUserId", "Price", "Title", "Type" },
+                columns: new[] { "Id", "BathNumber", "BedNumber", "Description", "IdUser", "Image", "Location", "Note", "NumberOfRooms", "OfferUserId", "Price", "Title", "Type" },
                 values: new object[,]
                 {
-                    { 1, 1, 2, "Magnifique appartement de 3 pièces situé en plein centre-ville. Entièrement rénové avec des finitions de qualité. À proximité de tous les commerces et transports en commun. Idéal pour un séjour d'affaires ou touristique.", "user1-guid-12345", "https://media.istockphoto.com/id/1293762741/fr/photo/int%C3%A9rieur-moderne-de-salle-de-vie-rendu-3d.jpg?s=612x612&w=0&k=20&c=BKixm6wq1Y6NFFF-8XllknUQvSboRmCmjn_Lm_erHmQ=", "Paris, France", 3, null, 120.50m, "Appartement moderne centre-ville", "Appartement" },
-                    { 2, 3, 4, "Superbe villa avec piscine privée située à seulement 5 minutes à pied de la plage. 4 chambres spacieuses, grand salon avec vue sur mer, cuisine équipée, jardin tropical. Parfait pour des vacances en famille ou entre amis.", "user2-guid-67890", "https://www.vacationkey.com/photos/1/1/119108-1.jpg", "Nice, France", 6, null, 285.00m, "Villa avec piscine près de la plage", "Villa" }
+                    { 1, 1, 2, "Magnifique appartement de 3 pièces situé en plein centre-ville. Entièrement rénové avec des finitions de qualité. À proximité de tous les commerces et transports en commun. Idéal pour un séjour d'affaires ou touristique.", "user1-guid-12345", "https://media.istockphoto.com/id/1293762741/fr/photo/int%C3%A9rieur-moderne-de-salle-de-vie-rendu-3d.jpg?s=612x612&w=0&k=20&c=BKixm6wq1Y6NFFF-8XllknUQvSboRmCmjn_Lm_erHmQ=", "Paris, France", 0.0, 3, null, 120, "Appartement moderne centre-ville", "Appartement" },
+                    { 2, 3, 4, "Superbe villa avec piscine privée située à seulement 5 minutes à pied de la plage. 4 chambres spacieuses, grand salon avec vue sur mer, cuisine équipée, jardin tropical. Parfait pour des vacances en famille ou entre amis.", "user2-guid-67890", "https://www.vacationkey.com/photos/1/1/119108-1.jpg", "Nice, France", 0.0, 6, null, 285, "Villa avec piscine près de la plage", "Villa" }
                 });
 
             migrationBuilder.CreateIndex(

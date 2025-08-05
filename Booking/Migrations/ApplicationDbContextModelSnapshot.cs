@@ -22,6 +22,225 @@ namespace Booking.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Booking.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreation")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "user1-guid-12345",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "static-concurrency-stamp-12345",
+                            DateCreation = new DateTime(2024, 1, 15, 10, 30, 0, 0, DateTimeKind.Utc),
+                            Email = "marie.dupont@email.com",
+                            EmailConfirmed = true,
+                            FirstName = "Marie",
+                            LastName = "Dupont",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MARIE.DUPONT@EMAIL.COM",
+                            NormalizedUserName = "MARIE.DUPONT@EMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJzWlLc+Q3UjKD5z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z=",
+                            PhoneNumber = "+33123456789",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "static-security-stamp-12345",
+                            TwoFactorEnabled = false,
+                            UserName = "marie.dupont@email.com"
+                        },
+                        new
+                        {
+                            Id = "user2-guid-67890",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "static-concurrency-stamp-12345",
+                            DateCreation = new DateTime(2024, 1, 20, 10, 30, 0, 0, DateTimeKind.Utc),
+                            Email = "jean.martin@email.com",
+                            EmailConfirmed = true,
+                            FirstName = "Jean",
+                            LastName = "Martin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JEAN.MARTIN@EMAIL.COM",
+                            NormalizedUserName = "JEAN.MARTIN@EMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJzWlLc+Q3UjKD5z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z=",
+                            PhoneNumber = "+33987654321",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "static-security-stamp-12345",
+                            TwoFactorEnabled = false,
+                            UserName = "jean.martin@email.com"
+                        });
+                });
+
+            modelBuilder.Entity("Booking.Models.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BathNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BedNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<double>("Note")
+                        .HasColumnType("float");
+
+                    b.Property<int>("NumberOfRooms")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OfferUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.HasIndex("OfferUserId");
+
+                    b.ToTable("Offers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BathNumber = 1,
+                            BedNumber = 2,
+                            Description = "Magnifique appartement de 3 pièces situé en plein centre-ville. Entièrement rénové avec des finitions de qualité. À proximité de tous les commerces et transports en commun. Idéal pour un séjour d'affaires ou touristique.",
+                            IdUser = "user1-guid-12345",
+                            Image = "https://media.istockphoto.com/id/1293762741/fr/photo/int%C3%A9rieur-moderne-de-salle-de-vie-rendu-3d.jpg?s=612x612&w=0&k=20&c=BKixm6wq1Y6NFFF-8XllknUQvSboRmCmjn_Lm_erHmQ=",
+                            Location = "Paris, France",
+                            Note = 0.0,
+                            NumberOfRooms = 3,
+                            Price = 120,
+                            Title = "Appartement moderne centre-ville",
+                            Type = "Appartement"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BathNumber = 3,
+                            BedNumber = 4,
+                            Description = "Superbe villa avec piscine privée située à seulement 5 minutes à pied de la plage. 4 chambres spacieuses, grand salon avec vue sur mer, cuisine équipée, jardin tropical. Parfait pour des vacances en famille ou entre amis.",
+                            IdUser = "user2-guid-67890",
+                            Image = "https://www.vacationkey.com/photos/1/1/119108-1.jpg",
+                            Location = "Nice, France",
+                            Note = 0.0,
+                            NumberOfRooms = 6,
+                            Price = 285,
+                            Title = "Villa avec piscine près de la plage",
+                            Type = "Villa"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -155,223 +374,18 @@ namespace Booking.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Solution.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Booking.Models.Offer", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasOne("Booking.Models.ApplicationUser", null)
+                        .WithMany("Offers")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                    b.HasOne("Booking.Models.ApplicationUser", "OfferUser")
+                        .WithMany()
+                        .HasForeignKey("OfferUserId");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreation")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "user1-guid-12345",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "static-concurrency-stamp-12345",
-                            DateCreation = new DateTime(2024, 1, 15, 10, 30, 0, 0, DateTimeKind.Utc),
-                            Email = "marie.dupont@email.com",
-                            EmailConfirmed = true,
-                            FirstName = "Marie",
-                            LastName = "Dupont",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MARIE.DUPONT@EMAIL.COM",
-                            NormalizedUserName = "MARIE.DUPONT@EMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJzWlLc+Q3UjKD5z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z=",
-                            PhoneNumber = "+33123456789",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "static-security-stamp-12345",
-                            TwoFactorEnabled = false,
-                            UserName = "marie.dupont@email.com"
-                        },
-                        new
-                        {
-                            Id = "user2-guid-67890",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "static-concurrency-stamp-12345",
-                            DateCreation = new DateTime(2024, 1, 20, 10, 30, 0, 0, DateTimeKind.Utc),
-                            Email = "jean.martin@email.com",
-                            EmailConfirmed = true,
-                            FirstName = "Jean",
-                            LastName = "Martin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JEAN.MARTIN@EMAIL.COM",
-                            NormalizedUserName = "JEAN.MARTIN@EMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJzWlLc+Q3UjKD5z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z9Z7Z=",
-                            PhoneNumber = "+33987654321",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "static-security-stamp-12345",
-                            TwoFactorEnabled = false,
-                            UserName = "jean.martin@email.com"
-                        });
-                });
-
-            modelBuilder.Entity("Solution.Models.Offer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BathNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BedNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<double>("Note")
-                        .HasColumnType("float");
-
-                    b.Property<int>("NumberOfRooms")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OfferUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUser");
-
-                    b.HasIndex("OfferUserId");
-
-                    b.ToTable("Offers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BathNumber = 1,
-                            BedNumber = 2,
-                            Description = "Magnifique appartement de 3 pièces situé en plein centre-ville. Entièrement rénové avec des finitions de qualité. À proximité de tous les commerces et transports en commun. Idéal pour un séjour d'affaires ou touristique.",
-                            IdUser = "user1-guid-12345",
-                            Image = "https://media.istockphoto.com/id/1293762741/fr/photo/int%C3%A9rieur-moderne-de-salle-de-vie-rendu-3d.jpg?s=612x612&w=0&k=20&c=BKixm6wq1Y6NFFF-8XllknUQvSboRmCmjn_Lm_erHmQ=",
-                            Location = "Paris, France",
-                            Note = 0.0,
-                            NumberOfRooms = 3,
-                            Price = 120,
-                            Title = "Appartement moderne centre-ville",
-                            Type = "Appartement"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BathNumber = 3,
-                            BedNumber = 4,
-                            Description = "Superbe villa avec piscine privée située à seulement 5 minutes à pied de la plage. 4 chambres spacieuses, grand salon avec vue sur mer, cuisine équipée, jardin tropical. Parfait pour des vacances en famille ou entre amis.",
-                            IdUser = "user2-guid-67890",
-                            Image = "https://www.vacationkey.com/photos/1/1/119108-1.jpg",
-                            Location = "Nice, France",
-                            Note = 0.0,
-                            NumberOfRooms = 6,
-                            Price = 285,
-                            Title = "Villa avec piscine près de la plage",
-                            Type = "Villa"
-                        });
+                    b.Navigation("OfferUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -385,7 +399,7 @@ namespace Booking.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Solution.Models.ApplicationUser", null)
+                    b.HasOne("Booking.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,7 +408,7 @@ namespace Booking.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Solution.Models.ApplicationUser", null)
+                    b.HasOne("Booking.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -409,7 +423,7 @@ namespace Booking.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Solution.Models.ApplicationUser", null)
+                    b.HasOne("Booking.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -418,28 +432,14 @@ namespace Booking.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Solution.Models.ApplicationUser", null)
+                    b.HasOne("Booking.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Solution.Models.Offer", b =>
-                {
-                    b.HasOne("Solution.Models.ApplicationUser", null)
-                        .WithMany("Offers")
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Solution.Models.ApplicationUser", "OfferUser")
-                        .WithMany()
-                        .HasForeignKey("OfferUserId");
-
-                    b.Navigation("OfferUser");
-                });
-
-            modelBuilder.Entity("Solution.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Booking.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Offers");
                 });
