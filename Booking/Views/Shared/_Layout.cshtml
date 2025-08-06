@@ -4,23 +4,15 @@
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
 <!DOCTYPE html>
 <html lang="en">
-@* <head> *@
-@*     <meta charset="utf-8" /> *@
-@*     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> *@
-@*     <title>@ViewData["Title"] - Booking</title> *@
-@*     <script type="importmap"></script> *@
-@*     <link href="~/css/output.css" rel="stylesheet" /> *@
-@*     <link rel="stylesheet" href="~/Booking.styles.css" asp-append-version="true" /> *@
-@*     <script src="~/lib/jquery/jquery.min.js"></script> *@
-@*     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script> *@
-@* </head> *@
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var userName = user?.FullName ?? user?.UserName ?? "Invité";
 
-
-@{ // récupération de l'id user 
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    var userName = User.Identity?.Name ?? "Invité";
+    ViewBag.UserName = userName;
+    ViewBag.User = user;
 }
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -136,9 +128,37 @@
     </main>
 </div>
 
-<footer>
+<footer class="bg-gray-50 py-12 border-t border-gray-200">
     @Html.Partial("_footer/_footer")
 </footer>
+
+<script>
+  document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+    const emailInput = this.querySelector('input[type="email"]');
+    const email = emailInput.value;
+
+    if (email) {
+      alert(`Merci de vous être abonné avec l'email : ${email}`);
+      // Ici, vous pouvez ajouter votre logique pour envoyer l'email à votre backend
+      // Par exemple, avec fetch API:
+      // fetch('/api/subscribe', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ email: email }),
+      // })
+      // .then(response => response.json())
+      // .then(data => console.log(data))
+      // .catch((error) => console.error('Error:', error));
+      emailInput.value = ''; // Réinitialise le champ
+    } else {
+      alert('Veuillez entrer une adresse email valide.');
+    }
+  });
+</script>
+
 @await RenderSectionAsync("Scripts", required: false)
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>

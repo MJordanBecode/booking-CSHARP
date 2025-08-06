@@ -18,20 +18,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Connexion SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
                        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-// Service pour les offres
-builder.Services.AddScoped<IOfferService, OfferService>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-// Configuration Identity avec rôles
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => 
+// ✅ Un seul appel à AddIdentity avec rôles + token providers
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+// Services personnalisés
+builder.Services.AddScoped<IOfferService, OfferService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Configuration du cookie d'authentification
 builder.Services.ConfigureApplicationCookie(options =>
@@ -44,7 +45,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-// Ajout des politiques d'autorisation
+// Politiques d'autorisation
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("HostOrAdmin", policy => 
@@ -52,10 +53,6 @@ builder.Services.AddAuthorization(options =>
     
     options.AddPolicy("AdminOnly", policy => 
         policy.RequireRole("Admin"));
-    
-    // options.AddPolicy("GuestOnly", policy =>
-    //     policy.RequireAssertion(context =>
-    //         context.User.Identity != null && !context.User.Identity.IsAuthenticated));
 });
 
 builder.Services.AddRazorPages();
@@ -92,8 +89,8 @@ app.UseAuthorization();
 app.MapStaticAssets();
 
 app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Offers}/{action=Index}/{id?}")
+    name: "default",
+    pattern: "{controller=Offers}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 app.MapRazorPages().WithStaticAssets();
@@ -133,6 +130,7 @@ async Task InitializeRoles(RoleManager<IdentityRole> roleManager, UserManager<Ap
     }
 }
 
+// Classe email fake
 public class NullEmailSender : IEmailSender
 {
     public Task SendEmailAsync(string email, string subject, string htmlMessage)

@@ -151,10 +151,14 @@
                 <i data-lucide="edit" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 <span>Modifier le profil</span>
             </button>
-            <button class="w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword"
+               class="w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800
+          text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl
+          transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3
+          shadow-lg hover:shadow-xl transform hover:scale-105">
                 <i data-lucide="key" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 <span>Changer le mot de passe</span>
-            </button>
+            </a>
             <button class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105">
                 <i data-lucide="settings" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 <span>Paramètres</span>
