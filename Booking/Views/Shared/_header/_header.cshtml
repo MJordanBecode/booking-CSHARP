@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<Booking.Models.ApplicationUser> UserManager
+
 <nav class="flex items-center justify-between px-4 py-2 bg-white shadow mb-2">
     <!-- Logo -->
     <div>
@@ -55,26 +57,38 @@
             
         </div>
 
+        @{
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value; //récupère l'id du user connecté 
+            var user = await UserManager.GetUserAsync(User);
+            var userFullName = user?.FullName ?? "Profil";
+        }
         @* user *@
         @if (User.Identity.IsAuthenticated)
         {
+            
+            
             <div class="bg-gray-100 flex flex-col items-center p-4 m-1 gap-2 border border-black rounded-lg relative">
   
                 <!-- Icône settings en haut à droite -->
                 <i data-lucide="settings" class="w-4 h-4 text-black/50 cursor-pointer absolute top-2 right-2 z-10 " id="settings"></i>
   
-                <div>
-                    <!-- Avatar centré -->
-                    <img src="images/avatarUser/stitch.png" alt="default" class="w-24 h-24 rounded-full object-cover"/>
-                </div>
-  
-                <div>
-                    <!-- Nom d'utilisateur -->
-                    <div class="flex gap-1 items-center justify-center">
-                        <i data-lucide="circle-small" class="w-4 h-4 text-black/50 fill-green-500 cursor-pointer" id="circle-small"></i>
-                        <p>Name of user</p>
+                <a asp-controller="Profil" asp-action="ProfilById" asp-route-id="@userId" class="flex flex-col gap-2" >
+                    <div>
+                        <!-- Avatar centré -->
+                        <img src="/images/avatarUser/stitch.png" alt="default" class="w-24 h-24 rounded-full object-cover"/> @* Par la suite, changer la table user pour accepter  *@
                     </div>
-                </div>
+  
+                    <div>
+                        <!-- Nom d'utilisateur -->
+                        <div class="flex gap-1 items-center justify-center">
+                            <i data-lucide="circle-small" class="w-4 h-4 text-black/50 fill-green-500 cursor-pointer" id="circle-small"></i>
+                            <p>
+                                @userFullName
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                
 
             </div>
         }
