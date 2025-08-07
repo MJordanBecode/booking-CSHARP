@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject UserManager<Booking.Models.ApplicationUser> UserManager
 
-<nav class="flex items-center justify-between px-8 py-5 mx-auto bg-white shadow-sm rounded-xl">
+<nav class="flex items-center justify-between p-2  py-5 mx-auto bg-white shadow-sm rounded-xl">
     <!-- Logo -->
     <a href="/">
         <div class="flex items-center space-x-2">
@@ -11,7 +11,7 @@
     
 
     <!-- Menu -->
-    <div class="flex items-center space-x-6">
+    <div class="hidden md:flex items-center space-x-6">
         <!-- Liens -->
         <a href="/" class="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors text-base font-medium">
             <i data-lucide="home" class="w-5 h-5"></i> Accueil
@@ -57,6 +57,12 @@
             </div>
         }
     </div>
+    <div class="md:hidden">
+        <div id="burgerBtn">
+            <i data-lucide="menu" class="w-6 h-6 text-blue-500 cursor-pointer"></i>
+        </div>
+        
+    </div>
 </nav>
 
 
@@ -65,7 +71,7 @@
     <!-- Conteneur principal centré verticalement -->
     <div class="flex flex-col m-x-4 h-full space-y-4 ">
         
-        <div class=" relative flex items-center justify-end w-full px-6 py-2 mt-4 mb-4">
+        <div class="  relative flex items-center justify-end w-full px-6 py-12 mt-4 mb-4">
             <!-- Titre centré en absolu -->
             <p class="absolute left-1/2 -translate-x-1/2  font-semibold text-center text-2xl">Welcome to Jostan's</p>
 

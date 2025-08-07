@@ -80,9 +80,10 @@
     ViewData["Title"] = "Hom e Page";
 }
 
-<h2 class="text-2xl font-bold mb-6">@ViewData["Title"]</h2>
-@*Permet d'afficher toutes les cartes ! *@
-@foreach (var card in Model)
-{
-    @await Html.PartialAsync("_card/_card", card)
-}
+<!-- Grille responsive pour afficher 1 à 4 cartes par ligne -->
+<div class="grid gap-6 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    @foreach (var card in Model)
+    {
+        @await Html.PartialAsync("_card/_card", card)
+    }
+</div>
