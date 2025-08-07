@@ -66,6 +66,8 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    // var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    // DbSeeder.SeedOffers(db); permet la génération de données fictives
     
     await InitializeRoles(roleManager, userManager);
 }
