@@ -4,51 +4,80 @@
     ViewData["HideSearchBar"] = true;
 }
 
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-6 px-4 sm:py-8 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto">
-        <!-- Header Section - Vibrant & Dynamic -->
-        <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl overflow-hidden mb-6 sm:mb-8 transform transition-all duration-500 hover:scale-[1.01]">
-            <div class="relative px-6 py-8 sm:px-8 sm:py-12 bg-gradient-to-r from-blue-600 to-purple-600">
-                <!-- Subtle background pattern/texture -->
-                <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'6\' height=\'6\' viewBox=\'0 0 6 6\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M5 0h1L0 6V5zM6 5v1H5z\'/%3E%3C/g%3E%3C/svg%3E');"></div>
-                
-                <div class="relative z-10 flex flex-col sm:flex-row items-center sm:items-center space-y-4 sm:space-y-0 sm:space-x-8 text-center sm:text-left">
-                    <div class="relative group">
-                        <img src="/images/avatarUser/stitch.png" alt="Avatar de l'utilisateur" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto border-4 object-cover border-white shadow-lg transform transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3">
-                        <div class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-7 h-7 sm:w-8 sm:h-8 bg-green-400 rounded-full border-3 sm:border-4 border-white flex items-center justify-center shadow-md animate-pulse-once">
-                            <i data-lucide="check" class="w-3 h-3 sm:w-4 sm:h-4 text-white"></i>
-                        </div>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-6 px-4 sm:py-8 sm:px-6 lg:px-8"/>
+<div class="max-w-4xl mx-auto">
+    <!-- Header Section - Vibrant & Dynamic -->
+    <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl overflow-hidden mb-6 sm:mb-8 transform transition-all duration-500 hover:scale-[1.01]">
+        <div class="relative px-6 py-8 sm:px-8 sm:py-12 bg-gradient-to-r from-blue-600 to-purple-600">
+            <!-- Subtle background pattern/texture -->
+            <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'6\' height=\'6\' viewBox=\'0 0 6 6\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M5 0h1L0 6V5zM6 5v1H5z\'/%3E%3C/g%3E%3C/svg%3E');"></div>
+            <div class="relative z-10 flex flex-col sm:flex-row items-center sm:items-center space-y-4 sm:space-y-0 sm:space-x-8 text-center sm:text-left">
+                <div class="relative group">
+                    <img src="/images/avatarUser/stitch.png" alt="Avatar de l'utilisateur" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto border-4 object-cover border-white shadow-lg transform transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3">
+                    <div class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-7 h-7 sm:w-8 sm:h-8 bg-green-400 rounded-full border-3 sm:border-4 border-white flex items-center justify-center shadow-md animate-pulse-once">
+                        <i data-lucide="check" class="w-3 h-3 sm:w-4 sm:h-4 text-white"></i>
                     </div>
-                    <div class="text-white">
-                        <h1 class="text-3xl sm:text-5xl font-extrabold mb-1 sm:mb-2 drop-shadow-lg">Bienvenue, <span class="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">@Model.User.FullName</span></h1>
-                        <p class="text-blue-100 text-base sm:text-xl font-light">Membre depuis le @Model.User.DateCreation.ToString("dd MMMM yyyy")</p>
-                    </div>
+                </div>
+                <div class="text-white">
+                    <h1 class="text-3xl sm:text-5xl font-extrabold mb-1 sm:mb-2 drop-shadow-lg">Bienvenue,
+                        <span class="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">@Model.User.FullName</span>
+                    </h1>
+                    <p class="text-blue-100 text-base sm:text-xl font-light">Membre depuis le @Model.User.DateCreation.ToString("dd MMMM yyyy")</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Profile Information Grid - Clean & Interactive Cards -->
-        <div class="grid grid-cols-1 mb-4 lg:grid-cols-2 gap-4 sm:gap-8">
-            <!-- Contact Information Card -->
-            <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                <div class="flex items-center mb-5 sm:mb-6">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-100 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-md">
-                        <i data-lucide="mail" class="w-6 h-6 sm:w-7 sm:h-7 text-blue-600"></i>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Informations de contact</h2>
+    <!-- Profile Information Grid - Clean & Interactive Cards -->
+    <div class="grid grid-cols-1 mb-4 lg:grid-cols-2 gap-4 sm:gap-8">
+        <!-- Contact Information Card -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="flex items-center mb-5 sm:mb-6">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-100 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-md">
+                    <i data-lucide="mail" class="w-6 h-6 sm:w-7 sm:h-7 text-blue-600"></i>
                 </div>
-                <div class="space-y-4 sm:space-y-6">
-                    <!-- Email -->
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Informations de contact</h2>
+            </div>
+            <div class="space-y-4 sm:space-y-6">
+                <!-- Email -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 rounded-xl border border-gray-100">
+                    <div class="flex items-center space-x-3 sm:space-x-4">
+                        <i data-lucide="at-sign" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 flex-shrink-0"></i>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-xs sm:text-sm text-gray-500">Email</p>
+                            <p class="font-semibold text-gray-900 truncate text-sm sm:text-base">@Model.User.Email</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end sm:justify-start mt-2 sm:mt-0">
+                        @if (Model.User.EmailConfirmed)
+                        {
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <i data-lucide="check" class="w-3 h-3 mr-1"></i>
+                                Vérifié
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                <i data-lucide="x" class="w-3 h-3 mr-1"></i>
+                                Non vérifié
+                            </span>
+                        }
+                    </div>
+                </div>
+                <!-- Phone -->
+                @if (!string.IsNullOrEmpty(Model.User.PhoneNumber))
+                {
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 rounded-xl border border-gray-100">
                         <div class="flex items-center space-x-3 sm:space-x-4">
-                            <i data-lucide="at-sign" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 flex-shrink-0"></i>
+                            <i data-lucide="phone" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 flex-shrink-0"></i>
                             <div class="min-w-0 flex-1">
-                                <p class="text-xs sm:text-sm text-gray-500">Email</p>
-                                <p class="font-semibold text-gray-900 truncate text-sm sm:text-base">@Model.User.Email</p>
+                                <p class="text-xs sm:text-sm text-gray-500">Téléphone</p>
+                                <p class="font-semibold text-gray-900 text-sm sm:text-base">@Model.User.PhoneNumber</p>
                             </div>
                         </div>
                         <div class="flex justify-end sm:justify-start mt-2 sm:mt-0">
-                            @if (Model.User.EmailConfirmed)
+                            @if (Model.User.PhoneNumberConfirmed)
                             {
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     <i data-lucide="check" class="w-3 h-3 mr-1"></i>
@@ -64,166 +93,178 @@
                             }
                         </div>
                     </div>
-                    <!-- Phone -->
-                    @if (!string.IsNullOrEmpty(Model.User.PhoneNumber))
-                    {
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 rounded-xl border border-gray-100">
-                            <div class="flex items-center space-x-3 sm:space-x-4">
-                                <i data-lucide="phone" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 flex-shrink-0"></i>
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs sm:text-sm text-gray-500">Téléphone</p>
-                                    <p class="font-semibold text-gray-900 text-sm sm:text-base">@Model.User.PhoneNumber</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-end sm:justify-start mt-2 sm:mt-0">
-                                @if (Model.User.PhoneNumberConfirmed)
-                                {
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        <i data-lucide="check" class="w-3 h-3 mr-1"></i>
-                                        Vérifié
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                        <i data-lucide="x" class="w-3 h-3 mr-1"></i>
-                                        Non vérifié
-                                    </span>
-                                }
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-
-            <!-- Security Settings Card -->
-            <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                <div class="flex items-center mb-5 sm:mb-6">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-green-100 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-md">
-                        <i data-lucide="shield-check" class="w-6 h-6 sm:w-7 sm:h-7 text-green-600"></i>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Sécurité du compte</h2>
-                </div>
-                <div class="space-y-4 sm:space-y-6">
-                    <!-- Two Factor Authentication -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 rounded-xl border border-gray-100">
-                        <div class="flex items-start sm:items-center space-x-3 sm:space-x-4">
-                            <i data-lucide="smartphone" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 flex-shrink-0 mt-1 sm:mt-0"></i>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-semibold text-gray-900 text-sm sm:text-base">Authentification à deux facteurs</p>
-                                <p class="text-xs sm:text-sm text-gray-500 mt-1">Protection supplémentaire de votre compte</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-end sm:justify-start mt-2 sm:mt-0">
-                            @if (Model.User.TwoFactorEnabled)
-                            {
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                    <i data-lucide="check" class="w-3 h-3 mr-1"></i>
-                                    Activé
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                    <i data-lucide="alert-triangle" class="w-3 h-3 mr-1"></i>
-                                    Désactivé
-                                </span>
-                            }
-                        </div>
-                    </div>
-                    <!-- Account Creation Date -->
-                    <div class="p-3 sm:p-4 bg-blue-50 rounded-xl border border-blue-200">
-                        <div class="flex items-center space-x-3 sm:space-x-4">
-                            <i data-lucide="calendar" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 flex-shrink-0"></i>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-semibold text-blue-900 text-sm sm:text-base">Compte créé le</p>
-                                <p class="text-xs sm:text-sm text-blue-700 mt-1">@Model.User.DateCreation.ToString("dd MMMM yyyy à HH:mm")</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
 
-        @* Category Offers *@
+        <!-- Security Settings Card -->
         <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
             <div class="flex items-center mb-5 sm:mb-6">
-                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-[#FFCC9E] rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-md">
-                    <i data-lucide="archive" class="w-6 h-6 sm:w-7 sm:h-7 text-[#DB884B]"></i>
+                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-green-100 rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-md">
+                    <i data-lucide="shield-check" class="w-6 h-6 sm:w-7 sm:h-7 text-green-600"></i>
                 </div>
-                <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 mt-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                    <h3 class="text-2xl font-bold mb-4">Mes offres</h3>
-
-                    @if (Model.Offers != null && Model.Offers.Any())
-                    {
-                        <ul class="space-y-4">
-                            @foreach (var offer in Model.Offers)
-                            {
-                                <li class="border border-gray-200 rounded p-4 shadow-sm hover:shadow-md transition-shadow">
-                                    <h4 class="text-xl font-semibold">@offer.Title</h4>
-                                    <p class="text-gray-600">@offer.Description</p>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <p>Aucune offre trouvée.</p>
-                    }
-
-                    @if (Model.TotalPages > 1)
-                    {
-                        <nav class="mt-6 flex justify-center space-x-4">
-                            @if (Model.CurrentPage > 1)
-                            {
-                                <a href="@Url.Action("SelfProfil", "Profil", new { page = Model.CurrentPage - 1 })" class="px-3 py-1 border rounded bg-blue-600 text-white hover:bg-blue-700">Précédent</a>
-                            }
-                            else
-                            {
-                                <span class="px-3 py-1 border rounded text-gray-400 cursor-not-allowed">Précédent</span>
-                            }
-
-                            <span class="px-3 py-1 border rounded bg-gray-200 text-gray-700">
-                                Page @Model.CurrentPage sur @Model.TotalPages
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Sécurité du compte</h2>
+            </div>
+            <div class="space-y-4 sm:space-y-6">
+                <!-- Two Factor Authentication -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 rounded-xl border border-gray-100">
+                    <div class="flex items-start sm:items-center space-x-3 sm:space-x-4">
+                        <i data-lucide="smartphone" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 flex-shrink-0 mt-1 sm:mt-0"></i>
+                        <div class="min-w-0 flex-1">
+                            <p class="font-semibold text-gray-900 text-sm sm:text-base">Authentification à deux facteurs</p>
+                            <p class="text-xs sm:text-sm text-gray-500 mt-1">Protection supplémentaire de votre compte</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end sm:justify-start mt-2 sm:mt-0">
+                        @if (Model.User.TwoFactorEnabled)
+                        {
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <i data-lucide="check" class="w-3 h-3 mr-1"></i>
+                                Activé
                             </span>
-
-                            @if (Model.CurrentPage < Model.TotalPages)
-                            {
-                                <a href="@Url.Action("SelfProfil", "Profil", new { page = Model.CurrentPage + 1 })" class="px-3 py-1 border rounded bg-blue-600 text-white hover:bg-blue-700">Suivant</a>
-                            }
-                            else
-                            {
-                                <span class="px-3 py-1 border rounded text-gray-400 cursor-not-allowed">Suivant</span>
-                            }
-                        </nav>
-                    }
+                        }
+                        else
+                        {
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                <i data-lucide="alert-triangle" class="w-3 h-3 mr-1"></i>
+                                Désactivé
+                            </span>
+                        }
+                    </div>
+                </div>
+                <!-- Account Creation Date -->
+                <div class="p-3 sm:p-4 bg-blue-50 rounded-xl border border-blue-200">
+                    <div class="flex items-center space-x-3 sm:space-x-4">
+                        <i data-lucide="calendar" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 flex-shrink-0"></i>
+                        <div class="min-w-0 flex-1">
+                            <p class="font-semibold text-blue-900 text-sm sm:text-base">Compte créé le</p>
+                            <p class="text-xs sm:text-sm text-blue-700 mt-1">@Model.User.DateCreation.ToString("dd MMMM yyyy à HH:mm")</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-        </div>
-        </div>
-        <!-- Action Buttons - Bold & Animated -->
-        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <button class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105">
-                <i data-lucide="edit" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                <span>Modifier le profil</span>
-            </button>
-            <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword"
-               class="w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800
-          text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl
-          transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3
-          shadow-lg hover:shadow-xl transform hover:scale-105">
-                <i data-lucide="key" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                <span>Changer le mot de passe</span>
-            </a>
-            <button class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105">
-                <i data-lucide="settings" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                <span>Paramètres</span>
-            </button>
         </div>
     </div>
 
+    @* Category Offers 
+bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1
+*@
+    <div class="bg-white bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 mt-6 w-full max-w-7xl mx-auto overflow-x-auto" id="offersContainer"> 
+        <div class="flex items-center mb-5 sm:mb-6">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 bg-[#FFCC9E] rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-md">
+                <i data-lucide="archive" class="w-6 h-6 sm:w-7 sm:h-7 text-[#CF883A]"></i>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Informations Offers</h2>
+        </div>
+        <table class="w-full table-fixed bg-white rounded-lg shadow-md overflow-hidden">
+            <thead class="bg-gray-100 border-b">
+            <tr>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 w-1/5">Titre</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 w-1/6">Type</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 w-1/6">Lieu</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-gray-600 w-20">Chambres</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-gray-600 w-24">Salles de bain</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-gray-600 w-24">Prix</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-gray-600 w-24">Statut</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-gray-600 w-36">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+            @foreach (var offer in Model.Offers)
+            {
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900 truncate" title="@offer.Title">@offer.Title</td>
+                    <td class="px-6 py-4 text-sm text-gray-700 truncate" title="@offer.Type">@offer.Type</td>
+                    <td class="px-6 py-4 text-sm text-gray-700 truncate" title="@offer.Location">@offer.Location</td>
+                    <td class="px-6 py-4 text-sm text-center text-gray-700">@offer.NumberOfRooms</td>
+                    <td class="px-6 py-4 text-sm text-center text-gray-700">@offer.BathNumber</td>
+                    <td class="px-6 py-4 text-sm text-center text-gray-800 font-semibold">@offer.Price €</td>
+
+                    <td class="px-6 py-4 text-sm text-center">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-medium
+                            @(offer.Note >= 1 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")">
+                            @(offer.Note >= 1 ? "Activée" : "Désactivée")
+                        </span>
+                    </td>
+
+                    <td class="px-6 py-4 text-sm text-center space-y-1">
+                        @if (offer.Note >= 1)
+                        {
+                            <form method="post" asp-controller="Offers" asp-action="Deactivate" asp-route-id="@offer.Id">
+                                <button type="submit" class="w-full text-sm px-4 py-1 bg-red-500 hover:bg-red-600 text-white rounded-full transition">
+                                    Désactiver
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-controller="Offers" asp-action="Activate" asp-route-id="@offer.Id">
+                                <button type="submit" class="w-full text-sm px-4 py-1 bg-green-500 hover:bg-green-600 text-white rounded-full transition">
+                                    Activer
+                                </button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        @if (Model.TotalPages > 1)
+        {
+            <nav class="mt-6 flex justify-center space-x-4">
+                @if (Model.CurrentPage > 1)
+                {
+                    <a href="?page=@(Model.CurrentPage - 1)"
+                       class="pagination-link px-3 py-1 border rounded bg-blue-600 text-white hover:bg-blue-700">
+                        Précédent
+                    </a>
+                }
+                else
+                {
+                    <span class="px-3 py-1 border rounded text-gray-400 cursor-not-allowed">Précédent</span>
+                }
+
+                <span class="px-3 py-1 border rounded bg-gray-200 text-gray-700">
+                    Page @Model.CurrentPage sur @Model.TotalPages
+                </span>
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <a href="?page=@(Model.CurrentPage + 1)"
+                       class="pagination-link px-3 py-1 border rounded bg-blue-600 text-white hover:bg-blue-700">
+                        Suivant
+                    </a>
+                }
+                else
+                {
+                    <span class="px-3 py-1 border rounded text-gray-400 cursor-not-allowed">Suivant</span>
+                }
+            </nav>
+        }
+    </div>
+
+  
+    <!-- Action Buttons - Bold & Animated -->
+    <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+        <button class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <i data-lucide="edit" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            <span>Modifier le profil</span>
+        </button>
+        <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword"
+           class="w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800
+          text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl
+          transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3
+          shadow-lg hover:shadow-xl transform hover:scale-105">
+            <i data-lucide="key" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            <span>Changer le mot de passe</span>
+        </a>
+        <button class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <i data-lucide="settings" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            <span>Paramètres</span>
+        </button>
+    </div>
+</div>
 <style>
     /* Keyframe for subtle pulse effect */
     @@keyframes pulse-once {
